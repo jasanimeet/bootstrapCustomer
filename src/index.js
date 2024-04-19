@@ -18,22 +18,26 @@
 */
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter} from "react-router-dom";
+import { ToastProvider } from 'react-toast-notifications';
 
 import "bootstrap/dist/css/bootstrap.css";
 import "assets/scss/paper-dashboard.scss?v=1.3.0";
 import "assets/demo/demo.css";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-
-import AdminLayout from "layouts/Admin.js";
+import App from "./App.js";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import './main.scss';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/admin/*" element={<AdminLayout />} />
-      <Route path="/" element={<Navigate to="/admin/dashboard" replace />} />
-    </Routes>
+    <ToastProvider autoDismiss>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <App/>
+      </LocalizationProvider>
+    </ToastProvider>
   </BrowserRouter>
 );

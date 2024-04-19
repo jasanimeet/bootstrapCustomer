@@ -24,6 +24,9 @@ import TableList from "views/Tables.js";
 import Maps from "views/Map.js";
 import UserPage from "views/User.js";
 import UpgradeToPro from "views/Upgrade.js";
+import SearchContainer from "views/Search/SearchContainer";
+import Cart from "views/Cart/Cart";
+import Order from "views/Order/Order";
 
 var routes = [
   {
@@ -37,16 +40,23 @@ var routes = [
     path: "/search",
     name: "Search",
     icon: "nc-icon nc-diamond",
-    component: <Icons />,
+    component: <SearchContainer />,
     layout: "/admin",
   },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "nc-icon nc-pin-3",
-    component: <Maps />,
-    layout: "/admin",
-  },
+  // {
+  //   path: "/cart",
+  //   name: "Cart",
+  //   icon: "nc-icon nc-pin-3",
+  //   component: <Cart />,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/order",
+  //   name: "Order",
+  //   icon: "nc-icon nc-pin-3",
+  //   component: <Order />,
+  //   layout: "/admin",
+  // },
   {
     path: "/notifications",
     name: "Notifications",
@@ -73,14 +83,6 @@ var routes = [
     name: "Typography",
     icon: "nc-icon nc-caps-small",
     component: <Typography />,
-    layout: "/admin",
-  },
-  {
-    pro: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "nc-icon nc-spaceship",
-    component: <UpgradeToPro />,
     layout: "/admin",
   },
 ];

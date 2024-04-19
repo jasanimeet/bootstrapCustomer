@@ -1,24 +1,5 @@
-/*!
-
-=========================================================
-* Paper Dashboard React - v1.3.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-* Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React from "react";
-// react plugin used to create charts
-import { Line, Pie } from "react-chartjs-2";
+import React, { useEffect, useState } from "react";
+import { useToasts } from "react-toast-notifications";
 // reactstrap components
 import {
   Card,
@@ -30,74 +11,109 @@ import {
   Col,
   Table
 } from "reactstrap";
-// core components
-import {
-  dashboard24HoursPerformanceChart,
-  dashboardEmailStatisticsChart,
-  dashboardNASDAQChart,
-} from "variables/charts.js";
+import { EndPoint } from "utils/EndPoint";
+import { ApiGet } from "utils/api";
+import { BsCart2 } from 'react-icons/bs';
+import { RiContactsBook2Fill } from 'react-icons/ri';
+import { CiEdit } from 'react-icons/ci';
+import { MdDeleteForever } from 'react-icons/md';
+import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from "react-router-dom";
+import { ApiDelete } from "utils/api";
 
-export const saveSearch = [
-  {
-    Date: "13-Jan-2024",
-    Name: "test1",
-    Criteria: "Shape: 20, Col: Regular, Criteria: IF,VVS1, Cts: 10",
-  },
-  {
-    Date: "03-Jan-2024",
-    Name: "test",
-    Criteria: "Shape: 20, Col: Regular, Criteria: IF,VVS1, Cts: 10",
-  },
-  {
-    Date: "28-Jan-2024",
-    Name: "demo",
-    Criteria: "Shape: 20, Col: Regular, Criteria: IF,VVS1, Cts: 10",
-  },
-  {
-    Date: "28-Jan-2024",
-    Name: "demo",
-    Criteria: "Shape: 20, Col: Regular, Criteria: IF,VVS1, Cts: 10",
-  },
-  {
-    Date: "28-Jan-2024",
-    Name: "demo",
-    Criteria: "Shape: 20, Col: Regular, Criteria: IF,VVS1, Cts: 10",
-  },
-];
-
-const orderHistory = [
-  {
-    Date: '05-Jan-2024', orderNo: '1', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '24-Feb-2024', orderNo: '2', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '28-Jan-2024', orderNo: '3', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '05-Jan-2024', orderNo: '4', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '24-Feb-2024', orderNo: '5', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '28-Jan-2024', orderNo: '6', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '05-Jan-2024', orderNo: '7', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '24-Feb-2024', orderNo: '8', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '28-Jan-2024', orderNo: '9', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-  {
-    Date: '28-Jan-2024', orderNo: '10', totalPcs: 2000, totalCts: 1500, totalValue: 5000,
-  },
-];
 function Dashboard() {
+  const { addToast } = useToasts();
+  const navigate = useNavigate();
+
+  const [totalCountData, setTotalCountDataData] = useState({});
+  const [recentData, setRecentData] = useState([]);
+  const [saveSearchData, setSaveSearchData] = useState([]);
+  const [orderHistoryData, setOrderHistoryhData] = useState([]);
+
+  // total dashbord
+  const getTotalCount = () => {
+    ApiGet(`${EndPoint?.TOTAL_COUNT_DASHBORD}`)
+      .then((res) => {
+        if (res?.data?.statusCode === 200) {
+          setTotalCountDataData(res?.data);
+        }
+      }).catch((error) => {
+        addToast(error?.error, { appearance: 'error' });
+      });
+  };
+
+    // recent data
+    const getRecentSeach = () => {
+      ApiGet(`${EndPoint?.GET_SEARCH_REPORT_RECENT_SEARCH}`)
+        .then((res) => {
+          if (res?.data?.statusCode === 200) {
+            setRecentData(res?.data?.data);
+          }
+        }).catch((error) => {
+          addToast(error?.error, { appearance: 'error' });
+        });
+    };
+  
+    // save & search
+    const getSaveAndSeach = () => {
+      ApiGet(`${EndPoint?.GET_SAVE_Stock_SEARCH}`)
+        .then((res) => {
+          if (res?.data?.statusCode === 200) {
+            setSaveSearchData(res?.data?.data);
+          }
+        }).catch((error) => {
+          addToast(error?.error, { appearance: 'error' });
+        });
+    };
+  
+    // Order History Summary
+    const getOrderHistory = () => {
+      ApiGet(`${EndPoint?.GET_ORDER_SUMMARY}`)
+        .then((res) => {
+          if (res?.data?.statusCode === 200) {
+            setOrderHistoryhData(res?.data?.data);
+          }
+        }).catch((error) => {
+          addToast(error?.error, { appearance: 'error' });
+        });
+    };
+
+  useEffect(() => {
+    getTotalCount();
+    getRecentSeach();
+    getSaveAndSeach();
+    getOrderHistory();
+  }, []);
+
+  const criteriaSearch = (data) => {
+    navigate('/admin/search', { state: { data: data?.Search_Value, recentSearch: true } });
+  };
+
+  const criteriaSaveAndSearch = (data) => {
+    navigate('/admin/search', { state: { data: data?.Search_Value, saveAndSearch: true } });
+  };
+
+  const deleteSaveSearch = (id) => {
+    ApiDelete(`${EndPoint?.DELETE_STOCK_SEARCH_SAVE}?id=${id}`)
+      .then((res) => {
+        getSaveAndSeach();
+        addToast(res?.data?.message, { appearance: 'success' });
+      }).catch((error) => {
+        addToast(error?.error, { appearance: 'error' });
+      });
+  };
+
+  const editSaveSearch = (data) => {
+    ApiGet(`${EndPoint?.GET_SAVE_STOCK_SEARCH_BY_ID}?id=${data?.Id}`)
+      .then((res) => {
+        console.log('res', res?.data);
+        if (res?.status === 200) {
+          navigate(`/search?id=${res?.data?.data[0]?.Id}`, {
+            state: { data: res?.data?.data[0]?.Search_Value },
+          });
+        }
+      });
+  };
   return (
     <>
       <div className="content">
@@ -108,13 +124,14 @@ function Dashboard() {
                 <Row>
                   <Col md="4" xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-globe text-warning" />
+                      <i className="nc-icon nc-zoom-split text-warning" />
+                      {/* <SearchIcon style={{fontSize: '50px', color: 'rgb(244, 161, 0)', marginRight: '6px'}}/> */}
                     </div>
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
                       <p className="card-category">Total Stones</p>
-                      <CardTitle tag="p">150</CardTitle>
+                      <CardTitle tag="p">{totalCountData?.stone_Count}</CardTitle>
                       <p />
                     </div>
                   </Col>
@@ -135,12 +152,13 @@ function Dashboard() {
                   <Col md="4" xs="5">
                     <div className="icon-big text-center icon-warning">
                       <i className="nc-icon nc-money-coins text-success" />
+                      {/* <RiContactsBook2Fill style={{ fontSize: '50px', color: 'rgb(0, 172, 105)' }} /> */}
                     </div>
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
                       <p className="card-category">Order</p>
-                      <CardTitle tag="p">1,345</CardTitle>
+                      <CardTitle tag="p">{totalCountData?.order_count}</CardTitle>
                       <p />
                     </div>
                   </Col>
@@ -160,13 +178,14 @@ function Dashboard() {
                 <Row>
                   <Col md="4" xs="5">
                     <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-vector text-danger" />
+                      <i className="nc-icon nc-cart-simple text-danger" />
+                      {/* <BsCart2 style={{ fontSize: '50px', color: 'rgb(51, 102, 255)' }} /> */}
                     </div>
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
                       <p className="card-category">Cart</p>
-                      <CardTitle tag="p">23</CardTitle>
+                      <CardTitle tag="p">{totalCountData?.cart_count}</CardTitle>
                       <p />
                     </div>
                   </Col>
@@ -180,32 +199,6 @@ function Dashboard() {
               </CardFooter>
             </Card>
           </Col>
-          {/* <Col lg="3" md="6" sm="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col md="4" xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-favourite-28 text-primary" />
-                    </div>
-                  </Col>
-                  <Col md="8" xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Followers</p>
-                      <CardTitle tag="p">+45K</CardTitle>
-                      <p />
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="fas fa-sync-alt" /> Update now
-                </div>
-              </CardFooter>
-            </Card>
-          </Col> */}
         </Row>
 {/* 
         <Row>
@@ -233,87 +226,26 @@ function Dashboard() {
           </Col>
         </Row> */}
 
-        {/* <Row>
-          <Col md="4">
-            <Card>
-              <CardHeader>
-                <CardTitle tag="h5">Email Statistics</CardTitle>
-                <p className="card-category">Last Campaign Performance</p>
-              </CardHeader>
-              <CardBody style={{ height: "266px" }}>
-                <Pie
-                  data={dashboardEmailStatisticsChart.data}
-                  options={dashboardEmailStatisticsChart.options}
-                />
-              </CardBody>
-              <CardFooter>
-                <div className="legend">
-                  <i className="fa fa-circle text-primary" /> Opened{" "}
-                  <i className="fa fa-circle text-warning" /> Read{" "}
-                  <i className="fa fa-circle text-danger" /> Deleted{" "}
-                  <i className="fa fa-circle text-gray" /> Unopened
-                </div>
-                <hr />
-                <div className="stats">
-                  <i className="fa fa-calendar" /> Number of emails sent
-                </div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col md="8">
-            <Card className="card-chart">
-              <CardHeader>
-                <CardTitle tag="h5">NASDAQ: AAPL</CardTitle>
-                <p className="card-category">Line Chart with Points</p>
-              </CardHeader>
-              <CardBody>
-                <Line
-                  data={dashboardNASDAQChart.data}
-                  options={dashboardNASDAQChart.options}
-                  width={400}
-                  height={100}
-                />
-              </CardBody>
-              <CardFooter>
-                <div className="chart-legend">
-                  <i className="fa fa-circle text-info" /> Tesla Model S{" "}
-                  <i className="fa fa-circle text-warning" /> BMW 5 Series
-                </div>
-                <hr />
-                <div className="card-stats">
-                  <i className="fa fa-check" /> Data information certified
-                </div>
-              </CardFooter>
-            </Card>
-          </Col>
-        </Row> */}
-
           <Row className="mt-3">
             <Col lg="12" md="6" sm="6">
               <Card>
                 <CardHeader>
-                  <CardTitle tag="h4">Reset search</CardTitle>
+                  <CardTitle tag="h4">Recent search</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <Table responsive>
+                  <Table>
                     <thead className="text-primary">
                       <tr>
-                        <th>.</th>
                         <th>Date</th>
                         <th>Criteria</th>
                       </tr>
                     </thead>
                     <tbody>
-                    {saveSearch?.map((item, index) => (
+                    {recentData && recentData?.map((item, index) => (
                         <tr
-                          key={index}
-                        >
-                          <td style={{display: 'flex', gap: 5}}>
-                            <i className="fa fa-calendar" />
-                            <i className="fa fa-trash" />
-                          </td>
-                          <td>{item?.Date}</td>
-                          <td>{item?.Criteria}</td>
+                          key={index}>
+                          <td>{item?.Created_Date}</td>
+                          {item?.Search_Display?.map((x) => <td className="table-row" style={{ cursor: 'pointer' }} onClick={() => criteriaSearch(item)}>{x?.Filter}</td>)}
                         </tr>
                       ))}
                     
@@ -334,7 +266,7 @@ function Dashboard() {
                   <thead className="text-primary">
                     <tr>
                       <th>
-                        .
+                        
                       </th>
                       <th>
                         Date
@@ -348,14 +280,28 @@ function Dashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {saveSearch?.map((item) => (
+                    {saveSearchData?.map((item) => (
                       <tr>
                         <td style={{display: 'flex', gap: 5}}>
-                          <i className="fa fa-calendar" />
-                          <i className="fa fa-trash" />
+                          {/* <i className="fa fa-calendar" />
+                          <i className="fa fa-trash" /> */}
+                           <div onClick={() => editSaveSearch(item)}>
+                          <CiEdit style={{ fontSize: '22px', color: 'green' }} />
+                        </div>
+                        <div onClick={() => deleteSaveSearch(item?.Id)}>
+                          <MdDeleteForever style={{ fontSize: '22px', color: 'red' }} />
+                        </div>
                         </td>
-                        <td>{item?.Date}</td>
+                        <td>{item?.Created_Date}</td>
                         <td>{item?.Name}</td>
+                        {item?.Search_Display?.map((x) => (
+                        <td
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => criteriaSaveAndSearch(item)}
+                        >
+                          {x?.Filter}
+                        </td>
+                      ))}
                         <td>{item?.Criteria}</td>
                       </tr>
                     ))}
@@ -374,27 +320,27 @@ function Dashboard() {
               <CardBody>
                 <Table responsive>
                 
-              <thead>
-                <tr>
-                  <th className="table-header">Order No</th>
-                  <th className="table-header">Date</th>
-                  <th className="table-header">Total Pcs</th>
-                  <th className="table-header">Total Cts</th>
-                  <th className="table-header">Total Value</th>
+                  <thead className="text-primary">
+                    <tr>
+                      <th>Order No</th>
+                      <th>Date</th>
+                      <th>Total Pcs</th>
+                      <th>Total Cts</th>
+                      <th>Total Value</th>
 
-                </tr>
-              </thead>
-              <tbody>
-                {orderHistory.map((item) => (
-                  <tr>
-                    <td className="table-row">{item?.orderNo}</td>
-                    <td className="table-row">{item?.Date}</td>
-                    <td className="table-row">{item?.totalPcs}</td>
-                    <td className="table-row">{item?.totalCts}</td>
-                    <td className="table-row">{item?.totalValue}</td>
-                  </tr>
-                ))}
-              </tbody>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {orderHistoryData.slice(0, 10)?.map((item) => (
+                      <tr>
+                        <td className="table-row">{item?.Order_No}</td>
+                        <td className="table-row">{item?.Order_Date}</td>
+                        <td className="table-row">{item?.Pcs}</td>
+                        <td className="table-row">{item?.Cts}</td>
+                        <td className="table-row">{item?.Final_Amt}</td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </Table>    
               </CardBody>
               <CardFooter>

@@ -1,0 +1,240 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto', sans-serif !important;
+  scroll-behavior: smooth;
+}
+
+code {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+@media (min-width: 1200px) {
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1200px !important;
+  }
+}
+
+// for font smoothing
+.smoothed {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.h2,
+h2 {
+  font-size: 31px;
+}
+
+.admin_padding {
+  padding: 3rem 2rem;
+}
+
+.page_add_btn {
+  background-color: rgb(0, 0, 0);
+  font-size: 16px;
+  padding: 8px 20px;
+  border-radius: 0;
+  color: #fff;
+  text-decoration: none;
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.table_action_btn {
+  background-color: rgb(44, 26, 187);
+  padding: 2px 4px;
+  color: #fff;
+  box-shadow: 1px 1px 4px #787676;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+
+// for form control
+.form-control {
+  border-radius: 0 !important;
+}
+
+.input_file_button {
+  background-color: rgb(0, 0, 0) !important;
+  font-size: 16px !important;
+  padding: 10px 86px !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.admin_padding_table {
+  background-color: #fff;
+  width: 98%;
+  margin: 2px auto;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: rgb(115 82 199 / 18%) 0px 0.5rem 1.25rem;
+}
+
+.admin_add_form {
+  background-color: #fff;
+  width: 98%;
+  margin: 2px auto;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: rgb(115 82 199 / 18%) 0px 0.5rem 1.25rem;
+}
+
+
+
+@media (max-width:768px) {
+  .table-hader-name {
+    font-size: 18px !important;
+  }
+
+  .footer-btns {
+    flex-direction: column;
+    gap: 10px
+  }
+}
+
+@media (max-width:525px) {
+  .table-hader-container {
+    flex-direction: column;
+    align-items: flex-start !important;
+
+    .table-hader-name {
+      font-size: 16px !important;
+    }
+
+    .page_add_btn {
+      font-size: 14px !important;
+      padding: 8px !important;
+    }
+  }
+
+  .input_file_button {
+    font-size: 14px !important;
+    padding: 10px 40px !important;
+  }
+
+  .admin_add_form {
+    padding: 20px;
+  }
+
+  .admin_padding_table {
+    padding: 20px;
+  }
+}
+
+
+.ag-react-container {
+  width: 100%;
+}
+
+.ag-header-cell-label {
+  justify-content: center;
+  font-family: calibri;
+  font-size: 13px;
+}
+.ag-cell {
+  justify-content: center!important;
+  font-family: calibri!important;
+  font-size: 13px!important;
+  text-align: center!important;
+}
+
+.ag-theme-alpine .ag-header {
+  background-color: #f0faff;
+}
+
+.MuiDialog-root{
+  z-index: 100!important;
+}
+.dx-clear-button-area {
+  position: absolute;
+}
+
+.ag-row-selected .ag-cell {
+  background: rgba(33, 150, 243, 0.3) !important;
+}
+
+.ag-row-hover .ag-cell {
+  background: rgba(33, 150, 243, 0.1) !important;
+}
+
+.ag-cell-wrapper {
+  height: 100% !important;
+}
+
+.ag-cell-value {
+  line-height: 24px !important;
+  display: block !important;
+}
+
+.ag-cell-wrap-text {
+  white-space: unset !important;
+  word-break: keep-all !important;
+}
+
+.ag-selection-checkbox {
+  margin-right: 0!important;
+}
+
+.ag-header-icon {
+  color: #fff !important;
+}
+.ag-header-cell-text{
+  color: #262d47;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.resultpage-table {
+  border-collapse: collapse;
+}
+
+.resultpage-table th,
+.resultpage-table td {
+  border: 1px solid #9fabb1; /* Add border to all sides */
+}
+.resultpage-table td{
+  text-align: center;
+  width: 70px;
+  font-size: 14px;
+}
+.resultpage-table th{
+  background-color: #f0faff;
+  color: #262d47; 
+  font-family: calibri;
+  // font-size: small;
+}
+.resultpage-table th:first-child,
+.resultpage-table td:first-child {
+  border-top: none; /* Remove border on the right side */
+  border-left: none; /* Remove border on the right side */
+}
+
+.ag-header-cell {
+  // padding-left: 0!important;
+  padding-right: 0!important;
+}
