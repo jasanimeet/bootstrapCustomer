@@ -146,7 +146,7 @@ const Login = () => {
     <div className="login_page">
       <div className="login_page_form">
         {/* <img alt="logo" src="/asset/logo.png" /> */}
-        <h2>Log in</h2>
+        <h2>Log in1</h2>
         <Form noValidate onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Form.Group as={Col}>
