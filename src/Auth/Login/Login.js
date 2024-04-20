@@ -56,8 +56,8 @@ const Login = () => {
       }
 
       try {
-        // const res = await ApiPost(`${EndPoint.LOGIN_USER}`, values);
-        const res = await axios.post(`http://193.194.195.101:8013/api/${EndPoint.LOGIN_USER}`, values);
+        const res = await ApiPost(`${EndPoint.LOGIN_USER}`, values);
+        // const res = await axios.post(`http://193.194.195.101:8013/api/${EndPoint.LOGIN_USER}`, values);
         if (res?.status === 200) {
           addToast('Login Successfully', { appearance: 'success' });
 
