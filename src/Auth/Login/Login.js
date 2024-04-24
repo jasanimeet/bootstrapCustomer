@@ -56,8 +56,9 @@ const Login = () => {
       }
 
       try {
-        const res = await ApiPost(`${EndPoint.LOGIN_USER}`, values);
-        // const res = await axios.post(`http://193.194.195.101:8013/api/${EndPoint.LOGIN_USER}`, values);
+        // const res = await ApiPost(`${EndPoint.LOGIN_USER}`, values);g
+        const res = await axios.post(`http://193.194.195.101:8013/api/${EndPoint.LOGIN_USER}`, values);
+        // const res = await axios.post(`http://16.163.37.55:8123/api/${EndPoint.LOGIN_USER}`, values);
         if (res?.status === 200) {
           addToast('Login Successfully', { appearance: 'success' });
 
@@ -146,7 +147,7 @@ const Login = () => {
     <div className="login_page">
       <div className="login_page_form">
         {/* <img alt="logo" src="/asset/logo.png" /> */}
-        <h2>Log in1</h2>
+        <h2>Log in</h2>
         <Form noValidate onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Form.Group as={Col}>

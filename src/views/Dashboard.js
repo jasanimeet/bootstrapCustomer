@@ -108,7 +108,7 @@ function Dashboard() {
       .then((res) => {
         console.log('res', res?.data);
         if (res?.status === 200) {
-          navigate(`/search?id=${res?.data?.data[0]?.Id}`, {
+          navigate(`/admin/search?id=${res?.data?.data[0]?.Id}`, {
             state: { data: res?.data?.data[0]?.Search_Value },
           });
         }
@@ -140,7 +140,7 @@ function Dashboard() {
               <CardFooter>
                 <hr />
                 <div className="stats">
-                  <i className="fas fa-sync-alt" /> Update Now
+                  {/* <i className="fas fa-sync-alt" /> Update Now */}
                 </div>
               </CardFooter>
             </Card>
@@ -167,7 +167,7 @@ function Dashboard() {
               <CardFooter>
                 <hr />
                 <div className="stats">
-                  <i className="far fa-calendar" /> Last day
+                  {/* <i className="far fa-calendar" /> Last day */}
                 </div>
               </CardFooter>
             </Card>
@@ -194,7 +194,7 @@ function Dashboard() {
               <CardFooter>
                 <hr />
                 <div className="stats">
-                  <i className="far fa-clock" /> In the last hour
+                  {/* <i className="far fa-clock" /> In the last hour */}
                 </div>
               </CardFooter>
             </Card>
@@ -262,7 +262,7 @@ function Dashboard() {
                   <CardTitle tag="h4">Save search</CardTitle>
                 </CardHeader>
                 <CardBody>
-                  <Table responsive style={{overflow: 'none'}}>
+                  <Table style={{overflow: 'none'}}>
                   <thead className="text-primary">
                     <tr>
                       <th>
@@ -318,7 +318,7 @@ function Dashboard() {
                 <CardTitle tag="h4">Order History Summary</CardTitle>
               </CardHeader>
               <CardBody>
-                <Table responsive>
+                <Table>
                 
                   <thead className="text-primary">
                     <tr>

@@ -357,7 +357,7 @@ const Result = ({
     }
 
     if (params.node.rowIndex % 2 === 0) {
-      return { background: 'rgb(238 238 238)' };
+      return { background: 'rgb(247 247 247)' };
     }
   };
 
@@ -935,7 +935,6 @@ const Result = ({
           padding: '0 16px',
           justifyContent: 'space-between',
           // marginTop: '70px',
-          background: '#fff'
         }}
         // className={classes.responsiveHeader}
       >
@@ -956,7 +955,7 @@ const Result = ({
               <th style={{ fontSize: '13px', fontWeight: 600, width: '80px'}}>Offer Amount</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{borderLeft: '1px solid #9FABB1'}}>
             <tr>
               <th style={{
                 fontSize: '13px', textAlign: 'left', fontWeight: 600, paddingLeft: '5px',

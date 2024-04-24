@@ -679,7 +679,7 @@ const SearchContainer = () => {
     tabs.push(
       <Button
         key="search"
-        style={{ color: activeResultPage === 'search' && 'red' }}
+        style={{ color: activeResultPage === 'search' && '#fff',background: activeResultPage === 'search' && '#023067', height: '20px', marginTop: '5px' }}
         onClick={() => handleActiveTabChange('search')}
       >
         Search
@@ -690,7 +690,9 @@ const SearchContainer = () => {
       tabs.push(
         <Button
           key={`result-${i}`}
-          style={{ color: activeResultPage === `result-${i}` && 'red' }}
+          // style={{ color: activeResultPage === `result-${i}` && 'red' }}
+        style={{ color: activeResultPage === `result-${i}` && '#fff',background: activeResultPage === `result-${i}` && '#023067', height: '20px', marginTop: '5px' }}
+
           onClick={() => handleActiveTabChange(`result-${i}`)}
         >
           Result-
@@ -878,7 +880,7 @@ const SearchContainer = () => {
   return (
     <>
       {loader && <BlurBackground />}
-      {!location?.state?.recentSearch && !location?.state?.saveAndSearch && (
+      {!location?.state?.recentSearch && !location?.state?.saveAndSearch && !location?.state?.directSearch && (
       <>
         <div style={{ display: 'flex', gap: '10px', height: '40px', marginTop: '60px' }}>
           {generateResultTabs()}
@@ -965,7 +967,7 @@ const SearchContainer = () => {
 
       </>
       )}
-
+<div style={{marginTop: '60px'}}>
       {location?.state?.recentSearch && (
         <>
           <div style={{ display: 'flex', gap: '10px', height: '40px' }}>
@@ -994,7 +996,21 @@ const SearchContainer = () => {
           />
         </>
       )}
-
+{location?.state?.directSearch && (
+        <>
+          <div style={{ display: 'flex', gap: '10px', height: '40px' }}>
+            <Button
+              style={{ color: 'red' }}
+            >
+              Result-1
+            </Button>
+          </div>
+          <Result
+            data={recentEdit}
+          />
+        </>
+      )}
+      </div>
       {saveSearchPopup && (
       <Dialog
         open={saveSearchPopup}

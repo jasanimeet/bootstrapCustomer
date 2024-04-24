@@ -61,6 +61,7 @@ import { emailPattern } from '../../utils/Regex';
 import WhatsAppImg from '../../assets/img/ShareImages/whatsapp.png';
 import SkypeImg from '../../assets/img/ShareImages/skype.png';
 import { AllMessage } from '../../constant/AllMessage';
+import ShareIcon from '@mui/icons-material/Share';
 
 // import { SearchOutlined } from '@mui/icons-material';
 
@@ -1004,7 +1005,6 @@ const Cart = () => {
           padding: '0 16px',
           gap: 5,
           marginTop: '70px',
-          background: '#fff'
         }}
         // className={classes.responsiveHeader}
       >
@@ -1036,7 +1036,7 @@ const Cart = () => {
 
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{borderLeft: '1px solid #9FABB1'}}>
             <tr>
               <th style={{
                 fontSize: '13px', textAlign: 'left', fontWeight: 600, paddingLeft: '5px', width: '10px',
@@ -1260,10 +1260,8 @@ const Cart = () => {
           </div>
           <div>
             <Tooltip title="Share" arrow>
-              <img
-                src={share}
-                height={30}
-                width={30}
+              <ShareIcon
+                style={{ color: '#000', height: '37px', width: '26px' }}
                 onClick={() => setShareModal(true)}
               />
             </Tooltip>

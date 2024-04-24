@@ -8,7 +8,8 @@ import Storage from './storage';
 let API_BASE_URL;
 
 // 115.124.106.150:8124
-if ((window.location.hostname === '16.163.37.55') || (window.location.hostname === 'solar-templete.vercel.app')) {
+// if ((window.location.hostname === '16.163.37.55') || (window.location.hostname === 'solar-templete.vercel.app')) {
+if (window.location.hostname === '16.163.37.55') {
   API_BASE_URL = 'http://16.163.37.55:8123/api';
 } else {
   API_BASE_URL = 'http://193.194.195.101:8013/api';

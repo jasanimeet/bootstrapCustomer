@@ -78,6 +78,12 @@ const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 const [changePassword, setChangePassword] = useState({ OldPassword: '', NewPassword: '', ConfirmPassword: '' });
 const [changePasswordError, setChangePasswordError] = useState({});
 
+const [searchValue, setSearchValue] = useState('');
+console.log("searchValue",searchValue);
+const handleInputChange = (event) => {
+  setSearchValue(event.target.value); // Update the searchValue state with the new value
+};
+
   const location = useLocation();
 
   const emailRef = useRef();
@@ -156,6 +162,32 @@ const [changePasswordError, setChangePasswordError] = useState({});
     setUserProfileData({ ...userProfileData, phone_No: e.target.value });
   };
 
+  //Navbar search
+  const handleSearchCall = () => {
+    const apiData = {
+      Stock_Multiple_Filter_Parameter: [[{
+        Column_Name: 'STOCK ID',
+        Col_Id: 0,
+        multiData: [],
+        Category_Value: searchValue?.replace(/\s+/g, ','),
+        Category_Name: '',
+      }]],
+    };
+    ApiPost(EndPoint.NEWLAB_SEARCH_API, apiData)
+      .then((res) => {
+        if (res?.status === 200) {
+          // setRowData(res?.data?.data);
+          navigate('/admin/search', { state: { data: apiData, directSearch: true } });
+          setSearchValue('');
+        } else if (res?.status === 204) {
+          // setRowData([]);
+          setSearchValue('');
+        }
+      }).catch((error) => {
+        addToast(error?.error, { appearance: 'error' });
+      });
+  };
+  
    // User Profile
    useEffect(() => {
     ApiGet(`${EndPoint?.GET_USER_PROFILE}`)
@@ -176,7 +208,10 @@ const [changePasswordError, setChangePasswordError] = useState({});
           },
           phone_No: res?.data?.data?.phone_No,
         });
-      });
+      }).catch((err)=>{
+        console.log("error",err);
+        // navigate('/')
+      })
   }, []);
 
   const updateProfile = () => {
@@ -306,10 +341,13 @@ const [changePasswordError, setChangePasswordError] = useState({});
         <Collapse isOpen={isOpen} navbar className="justify-content-end">
           <form>
             <InputGroup className="no-border">
-              <Input placeholder="Search..." />
+              <Input 
+                placeholder="StockId/Certi NO"
+                value={searchValue}
+                onChange={handleInputChange}/>
               <InputGroupAddon addonType="append">
                 <InputGroupText>
-                  <i className="nc-icon nc-zoom-split" />
+                  <i className="nc-icon nc-zoom-split" onClick={() => handleSearchCall()} style={{color: '#023067', fontWeight: 600}} />
                 </InputGroupText>
               </InputGroupAddon>
             </InputGroup>

@@ -33,6 +33,7 @@ const Search = ({
   apiGetData, totalDataCount,
   handleDownload,
 }) => {
+  console.log("totalDataCount",totalDataCount);
   const classes = useStyle();
   const [anchorEl, setAnchorEl] = useState(null);
   const [keyToSymbolPopup, setKeyToSymbolPopup] = useState(false);
@@ -2757,7 +2758,8 @@ const Search = ({
                 boxShadow: '0px 0px 5px 3px #cacaca',
               }}
               className={classes.fontNameStyle}
-              disabled={(totalDataCount > 1000 || totalDataCount === 0)}
+              disabled={(totalDataCount > 1000) || (totalDataCount === 0) || (totalDataCount === null && true)}
+              // disabled={(totalDataCount > 1000 || totalDataCount === 0)}
               onClick={() => handleSearchCall()}
             >
               <i className="fa fa-search" aria-hidden="true" style={{ marginRight: '5px' }} />
@@ -2845,7 +2847,8 @@ const Search = ({
                 }}
                 className={classes.fontNameStyle}
                 onClick={() => setSaveSearchPopup(true)}
-                disabled={(totalDataCount > 1000 || totalDataCount === 0)}
+                // disabled={(totalDataCount > 1000 || totalDataCount === 0)}
+                disabled={(totalDataCount > 1000) || (totalDataCount === 0) || (totalDataCount === null && true)}
               >
                 <i className="fa fa-floppy-o" aria-hidden="true" style={{ marginRight: '5px' }} />
                 Save & Search

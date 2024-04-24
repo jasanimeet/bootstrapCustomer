@@ -48,14 +48,15 @@ const GalleryView = ({ rowData }) =>
             {x?.['OFFER DISC']}
             %
           </div>
-          <Card sx={{ maxWidth: 250 }}>
+          <Card sx={{ maxWidth: 250, maxWidth: 400 }}>
             <a href="http://localhost:3002" target="_blank" rel="noreferrer">
               <CardMedia
                 sx={{
                   height: 180,
                   cursor: 'pointer',
                 }}
-                image={x?.['IMAGE LINK'] ? x?.['IMAGE LINK'] : diamond}
+                image={x?.['IMAGE LINK'] ? diamond : diamond}
+                // image={x?.['IMAGE LINK'] ? x?.['IMAGE LINK'] : diamond}
                 title="diamond"
               />
             </a>
@@ -66,7 +67,7 @@ const GalleryView = ({ rowData }) =>
                 <span style={{ fontSize: '11px' }}>{x?.CTS}</span>
                 <span style={{ fontSize: '11px' }}>{x?.STATUS}</span>
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '23px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
                 <span style={{ fontSize: '11px' }}>{x?.COLOR}</span>
                 <span style={{ fontSize: '11px' }}>{x?.CLARITY}</span>
                 <span style={{ fontSize: '11px' }}>{x?.CUT}</span>
@@ -81,7 +82,7 @@ const GalleryView = ({ rowData }) =>
                   {x?.['RAP AMOUNT']}
                 </span>
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '75px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '50px' }}>
                 <span style={{ fontSize: '11px' }}>
                   {x?.['PRICE PER CTS']}
                 </span>

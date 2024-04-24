@@ -19,7 +19,7 @@
 import React from "react";
 
 function FixedPlugin(props) {
-  const [classes, setClasses] = React.useState("dropdown show");
+  const [classes, setClasses] = React.useState("dropdown");
   const handleClick = () => {
     if (classes === "dropdown") {
       setClasses("dropdown show");

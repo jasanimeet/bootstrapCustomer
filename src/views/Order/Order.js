@@ -43,7 +43,6 @@ import Input from '../../common/FormControls/input/InputMaster';
 import email from '../../assets/img/email-m.png';
 import download from '../../assets/img/download-m.png';
 // import deleteblack from '../../assets/image/deleteblack.png';
-import share from '../../assets/img/electricity-bill.png';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -61,6 +60,7 @@ import { emailPattern } from '../../utils/Regex';
 import WhatsAppImg from '../../assets/img/ShareImages/whatsapp.png';
 import SkypeImg from '../../assets/img/ShareImages/skype.png';
 import { AllMessage } from '../../constant/AllMessage';
+import ShareIcon from '@mui/icons-material/Share';
 
 // import { SearchOutlined } from '@mui/icons-material';
 
@@ -950,7 +950,7 @@ const Order = () => {
         style={{
           display: 'flex',
           marginBottom: '10px',
-          height: '15%',
+          height: '70px',
           padding: '0 16px',
           gap: 5,
           marginTop: '70px',
@@ -986,7 +986,7 @@ const Order = () => {
 
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{borderLeft: '1px solid #9FABB1'}}>
             <tr>
               <th style={{
                 fontSize: '13px', textAlign: 'left', fontWeight: 600, paddingLeft: '5px', width: '10px',
@@ -1007,7 +1007,7 @@ const Order = () => {
             </tr>
             <tr>
               <th style={{
-                fontSize: '13px', textAlign: 'left', color: '#fff', fontWeight: 500, padding: '0 10px 0 0 ', paddingLeft: '5px',
+                fontSize: '13px', textAlign: 'left',fontWeight: 600, padding: '0 10px 0 0 ', paddingLeft: '5px',
               }}
               >
                 Selected
@@ -1186,10 +1186,14 @@ const Order = () => {
           </div>
           <div>
             <Tooltip title="Share" arrow>
-              <img
+              {/* <img
                 src={share}
                 height={30}
                 width={30}
+                onClick={() => setShareModal(true)}
+              /> */}
+               <ShareIcon
+                style={{ color: '#000', height: '37px', width: '26px' }}
                 onClick={() => setShareModal(true)}
               />
             </Tooltip>
